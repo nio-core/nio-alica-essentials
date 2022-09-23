@@ -65,19 +65,19 @@ public:
 
     std::string trimLeft(const std::string& str, const std::string& whitespace = " \t");
     static std::string trim(const std::string& str, const std::string& whitespace = " \t");
-    std::shared_ptr<std::vector<std::string>> getParams(char seperator, const char* path, va_list ap);
+    std::shared_ptr<std::vector<std::string> > getParams(char seperator, const char* path, va_list ap);
 
-    std::shared_ptr<std::vector<std::string>> getSections(const char* path, ...);
-    std::shared_ptr<std::vector<std::string>> tryGetSections(std::string d, const char* path, ...);
-    std::shared_ptr<std::vector<std::string>> getNames(const char* path, ...);
-    std::shared_ptr<std::vector<std::string>> tryGetNames(std::string d, const char* path, ...);
+    std::shared_ptr<std::vector<std::string> > getSections(const char* path, ...);
+    std::shared_ptr<std::vector<std::string> > tryGetSections(std::string d, const char* path, ...);
+    std::shared_ptr<std::vector<std::string> > getNames(const char* path, ...);
+    std::shared_ptr<std::vector<std::string> > tryGetNames(std::string d, const char* path, ...);
 
     template <typename T>
     T get(const char* path, ...)
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
         std::vector<ConfigNode*> nodes;
 
@@ -97,7 +97,7 @@ public:
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
         std::vector<ConfigNode*> nodes;
 
@@ -113,11 +113,11 @@ public:
     }
 
     template <typename T>
-    std::shared_ptr<std::vector<T>> getAll(const char* path, ...)
+    std::shared_ptr<std::vector<T> > getAll(const char* path, ...)
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
         std::vector<ConfigNode*> nodes;
 
@@ -128,7 +128,7 @@ public:
             std::cerr << errMsg << std::endl;
             throw std::runtime_error(errMsg);
         } else {
-            std::shared_ptr<std::vector<T>> result(new std::vector<T>());
+            std::shared_ptr<std::vector<T> > result(new std::vector<T>());
 
             for (int i = 0; i < nodes.size(); i++) {
                 result->push_back(convert<T>(nodes[i]->getValue()));
@@ -143,7 +143,7 @@ public:
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
 
         std::vector<ConfigNode*> nodes;
@@ -158,18 +158,18 @@ public:
     }
 
     template <typename T>
-    std::shared_ptr<std::vector<T>> tryGetAll(T d, const char* path, ...)
+    std::shared_ptr<std::vector<T> > tryGetAll(T d, const char* path, ...)
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
 
         std::vector<ConfigNode*> nodes;
 
         collect(this->configRoot.get(), params.get(), 0, &nodes);
 
-        std::shared_ptr<std::vector<T>> result(new std::vector<T>());
+        std::shared_ptr<std::vector<T> > result(new std::vector<T>());
 
         if (nodes.size() == 0) {
 
@@ -190,7 +190,7 @@ public:
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
 
         std::vector<ConfigNode*> nodes;
@@ -212,7 +212,7 @@ public:
     {
         va_list ap;
         va_start(ap, path);
-        std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+        std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
         va_end(ap);
 
         std::vector<ConfigNode*> nodes;

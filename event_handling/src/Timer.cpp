@@ -37,7 +37,8 @@ void Timer::run(bool notifyAll)
         if (!this->started) // for destroying the timer
             return;
 
-        std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
+        //std::chrono::system_clock::time_point
+        std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
         this->notifyAll(notifyAll);
         auto dura = std::chrono::high_resolution_clock::now() - start;
         //			cout << "TimerEvent: Duration is " <<

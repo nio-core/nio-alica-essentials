@@ -7,11 +7,6 @@
 
 #define WORKER_DEBUG
 
-namespace std
-{
-class thread;
-}
-
 namespace essentials
 {
 class Timer;
@@ -33,7 +28,7 @@ public:
 
     bool started; /** < Is always true except when the worker is shutting down. */
 
-    std::thread* runThread;   /** < Executes the runInternal and thereby the abstract run method. */
+    std::thread * runThread;   /** < Executes the runInternal and thereby the abstract run method. */
     essentials::Timer* timer; /** < Triggers the condition_variable of the runThread. */
 
   private:

@@ -26,6 +26,7 @@ const essentials::Identifier* IDManager::getIDFromBytes(const uint8_t *idBytes, 
     std::lock_guard<std::mutex> guard(idsMutex);
 
     // lookup the ID and insert it, if not available, yet
+
     auto entry = this->ids.insert(tmpID);
     if (!entry.second) { // delete tmpID if already present in IDs
         delete tmpID;

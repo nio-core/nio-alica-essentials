@@ -40,12 +40,24 @@ private:
  */
 template <class Prototype>
 const Identifier* IDManager::getID(Prototype& idPrototype, uint8_t type)
-{
+{    
     // little-endian encoding
     std::vector<uint8_t> idByteVector;
-    // TODO: replace with memcpy or std copy
-    for (int i = 0; i < static_cast<int>(sizeof(Prototype)); i++) {
-        idByteVector.push_back(*(((uint8_t*) &idPrototype) + i));
+
+    if (typeid(idPrototype) == typeid(std::string)) {
+        std::string tmp = static_cast<std::string>(idPrototype);
+        char cstr [tmp.size()];
+        tmp.copy(cstr, tmp.size());
+        // cstr[tmp.size()] = '\0';
+
+        for (char &c : cstr) {
+            idByteVector.push_back(static_cast<uint8_t>(c));
+        }   
+    } else {
+        // TODO: replace with memcpy or std copy
+        for (int i = 0; i < static_cast<int>(sizeof(Prototype)); i++) {
+            idByteVector.push_back(*(((uint8_t*) &idPrototype) + i));
+        }
     }
     return this->getIDFromBytes(idByteVector.data(), idByteVector.size(), type);
 }

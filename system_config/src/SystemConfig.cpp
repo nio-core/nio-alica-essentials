@@ -2,6 +2,8 @@
 
 #include "Configuration.h"
 
+#include <chrono>
+#include <ctime>
 #include <unistd.h>
 
 namespace essentials
@@ -77,7 +79,9 @@ SystemConfig::SystemConfig()
         char hn[1024];
         hn[1023] = '\0';
         gethostname(hn, 1023);
+        std::chrono::time_point<std::chrono::high_resolution_clock> now = std::chrono::high_resolution_clock::now();
         SystemConfig::hostname = hn;
+        SystemConfig::hostname.append(std::to_string(now.time_since_epoch().count()));
     } else {
         hostname = envname;
     }
@@ -206,7 +210,7 @@ void SystemConfig::setConfigPath(string configPath)
 
 void SystemConfig::resetHostname()
 {
-    char* envname = ::getenv("ROBOT");
+    char* envname = ::getenv("AGENT");
     if ((envname == NULL) || ((*envname) == 0x0)) {
         char hn[1024];
         hn[1023] = '\0';

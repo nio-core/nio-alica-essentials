@@ -300,18 +300,18 @@ std::string Configuration::pathNotFound(std::vector<std::string>* params)
  * @param path
  * @return A vector with the names of all sections in the given path.
  */
-std::shared_ptr<std::vector<std::string>> Configuration::getSections(const char* path, ...)
+std::shared_ptr<std::vector<std::string> > Configuration::getSections(const char* path, ...)
 {
     va_list ap;
     va_start(ap, path);
-    std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+    std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
     va_end(ap);
 
     std::vector<ConfigNode*> nodes;
 
     collectSections(this->configRoot.get(), params.get(), 0, &nodes);
 
-    std::shared_ptr<std::vector<std::string>> result(new std::vector<std::string>());
+    std::shared_ptr<std::vector<std::string> > result(new std::vector<std::string>());
 
     if (nodes.size() == 0) {
         std::cerr << pathNotFound(params.get()) << std::endl;
@@ -332,18 +332,18 @@ std::shared_ptr<std::vector<std::string>> Configuration::getSections(const char*
  * @param path
  * @return A vector with all keys or names of the given path.
  */
-std::shared_ptr<std::vector<std::string>> Configuration::getNames(const char* path, ...)
+std::shared_ptr<std::vector<std::string> > Configuration::getNames(const char* path, ...)
 {
     va_list ap;
     va_start(ap, path);
-    std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+    std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
     va_end(ap);
 
     std::vector<ConfigNode*> nodes;
 
     collectSections(this->configRoot.get(), params.get(), 0, &nodes);
 
-    std::shared_ptr<std::vector<std::string>> result(new std::vector<std::string>());
+    std::shared_ptr<std::vector<std::string> > result(new std::vector<std::string>());
 
     if (nodes.size() == 0) {
         std::cerr << pathNotFound(params.get()) << std::endl;
@@ -358,18 +358,18 @@ std::shared_ptr<std::vector<std::string>> Configuration::getNames(const char* pa
     return result;
 }
 
-std::shared_ptr<std::vector<std::string>> Configuration::tryGetSections(std::string d, const char* path, ...)
+std::shared_ptr<std::vector<std::string> > Configuration::tryGetSections(std::string d, const char* path, ...)
 {
     va_list ap;
     va_start(ap, path);
-    std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+    std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
     va_end(ap);
 
     std::vector<ConfigNode*> nodes;
 
     collectSections(this->configRoot.get(), params.get(), 0, &nodes);
 
-    std::shared_ptr<std::vector<std::string>> result(new std::vector<std::string>());
+    std::shared_ptr<std::vector<std::string> > result(new std::vector<std::string>());
 
     if (nodes.size() == 0) {
         result->push_back(d);
@@ -392,18 +392,18 @@ std::shared_ptr<std::vector<std::string>> Configuration::tryGetSections(std::str
  * collected.
  * @return The names of the sections at the given path
  */
-std::shared_ptr<std::vector<std::string>> Configuration::tryGetNames(std::string d, const char* path, ...)
+std::shared_ptr<std::vector<std::string> > Configuration::tryGetNames(std::string d, const char* path, ...)
 {
     va_list ap;
     va_start(ap, path);
-    std::shared_ptr<std::vector<std::string>> params = getParams('.', path, ap);
+    std::shared_ptr<std::vector<std::string> > params = getParams('.', path, ap);
     va_end(ap);
 
     std::vector<ConfigNode*> nodes;
 
     collectSections(this->configRoot.get(), params.get(), 0, &nodes);
 
-    std::shared_ptr<std::vector<std::string>> result(new std::vector<std::string>());
+    std::shared_ptr<std::vector<std::string> > result(new std::vector<std::string>());
 
     if (nodes.size() == 0) {
         result->push_back(d);
@@ -458,9 +458,9 @@ std::string Configuration::trim(const std::string& str, const std::string& white
  * @param ap
  * @return The list of strings after everything was splitted.
  */
-std::shared_ptr<std::vector<std::string>> Configuration::getParams(char seperator, const char* path, va_list ap)
+std::shared_ptr<std::vector<std::string> > Configuration::getParams(char seperator, const char* path, va_list ap)
 {
-    std::shared_ptr<std::vector<std::string>> params = std::make_shared<std::vector<std::string>>();
+    std::shared_ptr<std::vector<std::string> > params = std::make_shared<std::vector<std::string> >();
     if (path != NULL) {
         const char* temp = path;
         do {

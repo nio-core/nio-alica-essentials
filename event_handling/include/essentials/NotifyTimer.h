@@ -55,7 +55,8 @@ void NotifyTimer<NotificationClass>::run(bool notifyAll)
         if (!this->started) // for destroying the NotifyTimer
             return;
 
-        std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();
+        //std::chrono::system_clock::time_point
+        std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
         if (this->running) {
             (obj->*callback)();
         }
